@@ -16,7 +16,7 @@ jobs:
         run: |
           composer install --no-progress --prefer-dist --optimize-autoloader
       - name: PHPStan
-        run: composer phpstan
+        run: composer phpstan ./src
 
   phpcs:
     name: PHPCS
