@@ -14,4 +14,9 @@ class Sberbank
     {
         return new Payment(Payment::STATUS_COMPLETED);
     }
+
+    public function sad()
+    {
+        return '';
+    }
 }
