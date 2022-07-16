@@ -14,9 +14,4 @@ class Sberbank
     {
         return new Payment(Payment::STATUS_COMPLETED);
     }
-
-    public function sad($dim)
-    {
-        return $dim;
-    }
 }
