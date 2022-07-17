@@ -24,8 +24,6 @@ class StrategyFactory
     }
 
     /**
-     * @param string $paymentFlowName
-     * @return StrategyInterface
      * @throws Exception
      */
     public function create(string $paymentFlowName) : StrategyInterface

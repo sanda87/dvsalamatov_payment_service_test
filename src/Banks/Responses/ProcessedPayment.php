@@ -9,9 +9,9 @@ class ProcessedPayment
     public const STATUS_FAILED = 1;
     public const STATUS_COMPLETED = 2;
 
-    private $status;
+    private int $status;
 
-    public function __construct($status)
+    public function __construct(int $status)
     {
         $this->status = $status;
     }

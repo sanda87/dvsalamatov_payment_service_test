@@ -11,8 +11,6 @@ use Exception;
 class BankFactory
 {
     /**
-     * @param string $acquirerName
-     * @return BankInterface
      * @throws Exception
      */
     public static function create(string $acquirerName) : BankInterface
