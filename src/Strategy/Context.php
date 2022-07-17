@@ -30,7 +30,8 @@ class Context
 
     public function getAmount() : Money
     {
-        return Money::[$this->currency]$this->amount;
+        $currencyName = $this->currency;
+        return Money::$currencyName($this->amount);
     }
 
     public function getBankName() : string
