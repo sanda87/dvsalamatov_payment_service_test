@@ -8,6 +8,7 @@ use App\Services\Payments\ChargePaymentService;
 use App\Services\Payments\CreatePaymentService;
 use App\Services\Processing\ProcessingService;
 use App\Strategy\Context;
+use App\Strategy\StrategyFactory;
 
 require_once './vendor/autoload.php';
 
@@ -19,7 +20,8 @@ $clientCurrency = 'EUR';
 $clientPaymentFlow = PaymentNameEnum::QIWI;
 $params = ['phone' => '+79059808010'];
 $context = new Context($clientAmount, $clientCurrency, $clientBankName, $clientPaymentFlow, $params);
-$processingService = new ProcessingService(new CreatePaymentService(), new ChargePaymentService());
+$strategyFactory = new StrategyFactory(new CreatePaymentService(), new ChargePaymentService());
+$processingService = new ProcessingService($strategyFactory);
 $response = $processingService->handle($context);
 
 //Example for Card
@@ -30,7 +32,8 @@ $response = $processingService->handle($context);
 //    'cvc' => 123
 //];
 //$context = new Context($clientAmount, $clientCurrency, $clientBankName, $clientPaymentFlow, $params);
-//$processingService = new ProcessingService(new CreatePaymentService(), new ChargePaymentService());
+//$strategyFactory = new StrategyFactory(new CreatePaymentService(), new ChargePaymentService());
+//$processingService = new ProcessingService($strategyFactory);
 //$response = $processingService->handle($context);
 
 if ($response->isCompleted()) {
