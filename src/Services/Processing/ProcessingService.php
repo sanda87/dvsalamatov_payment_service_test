@@ -15,11 +15,8 @@ class ProcessingService implements ProcessingServiceInterface
 {
     private StrategyFactory $strategyFactory;
 
-    public function __construct(
-        CreatePaymentServiceInterface $createPaymentService,
-        ChargePaymentServiceInterface $chargePaymentService
-    ) {
-        $this->strategyFactory = new StrategyFactory($createPaymentService, $chargePaymentService);
+    public function __construct(StrategyFactory $strategyFactory) {
+        $this->strategyFactory = $strategyFactory;
     }
 
     public function handle(Context $context) : ProcessedPayment
