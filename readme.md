@@ -6,7 +6,7 @@
 - `docker-compose up -d --build`
 - `docker exec -it api_php composer install`
 
-Сайт доступен по адресу: http://localhost:8180/app.php
+Результат задания доступен по адресу: http://localhost:8180/app.php
 
 ## Задание
 
