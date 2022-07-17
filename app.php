@@ -20,12 +20,6 @@ $clientPaymentFlow = 'qiwi';
 $clientAmount = 100;
 $clientCurrency = 'EUR';
 
-$clientPhoneNumber = '+79059808010';
-
-$cardNumber = '4242424242424242';
-$cardDate = new \DateTime('2021-10-15');
-$cardCvc = 123;
-
 //****************
 
 $params = [
@@ -33,15 +27,14 @@ $params = [
     'date' => new \DateTime('2021-10-15'),
     'cvc' => 123
 ];
-
-$params = [
-    'phone' => '+79059808010'
-];
-
 $context = new Context($clientAmount, $clientCurrency, $clientBankName, $clientPaymentFlow, $params);
-
 $processingService = new ProcessingService(new CreatePaymentService(), new ChargePaymentService());
 $response = $processingService->handle($context);
+
+//$params = ['phone' => '+79059808010'];
+//$context = new Context($clientAmount, $clientCurrency, $clientBankName, $clientPaymentFlow, $params);
+//$processingService = new ProcessingService(new CreatePaymentService(), new ChargePaymentService());
+//$response = $processingService->handle($context);
 
 //$cardStrategy = new CardStrategy(new CreatePaymentService(), new ChargePaymentService());
 //$cardStrategy->createPaymentMethod();
