@@ -1,52 +1,45 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Entities;
 
-
-use App\PaymentMethods\Card;
 use DateTime;
 use Money\Money;
 
 class Payment
 {
+    protected Money $amount;
+    protected Money $commission;
+    protected DateTime $createdAt;
 
-    private Money $amount;
-    private Money $commission;
-    private Card $card;
-    private DateTime $createdAt;
-
-    public function __construct(Money $amount, Money $commission, Card $card)
+    public function __construct(Money $amount, Money $commission)
     {
         $this->amount = $amount;
         $this->commission = $commission;
-        $this->card = $card;
         $this->createdAt = new DateTime();
     }
 
-    public function getAmount(): Money
+    public function getAmount() : Money
     {
         return $this->amount;
     }
 
-    public function getCommission(): Money
+    public function getCommission() : Money
     {
         return $this->commission;
     }
 
-    public function getCard(): Card
-    {
-        return $this->card;
-    }
-
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt() : DateTime
     {
         return $this->createdAt;
     }
 
-    public function getNetAmount(): Money
+    /**
+     * TODO добавить поле amount_without_fee
+     */
+    public function getNetAmount() : Money
     {
         return $this->amount->subtract($this->commission);
     }
-
 }

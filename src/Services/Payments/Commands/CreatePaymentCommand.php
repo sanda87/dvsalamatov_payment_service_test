@@ -1,31 +1,32 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Services\Payments\Commands;
 
-
-use App\PaymentMethods\Card;
+use App\Fee\FeeCalculatorInterface;
 use Money\Money;
 
 class CreatePaymentCommand
 {
-
     private Money $amount;
-    private Card $card;
+    private FeeCalculatorInterface $feeCalculator;
 
-    public function __construct(Money $amount, Card $card)
-    {
+    public function __construct(
+        Money $amount,
+        FeeCalculatorInterface $feeCalculator
+    ) {
         $this->amount = $amount;
-        $this->card = $card;
+        $this->feeCalculator = $feeCalculator;
     }
 
-    public function getAmount(): Money
+    public function getAmount() : Money
     {
         return $this->amount;
     }
 
-    public function getCard(): Card
+    public function getFeeCalculator() : FeeCalculatorInterface
     {
-        return $this->card;
+        return $this->feeCalculator;
     }
 }

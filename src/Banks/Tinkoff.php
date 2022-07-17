@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace App\Banks;
 
-class Sberbank extends AbstractBank
+class Tinkoff extends AbstractBank
 {
 }
