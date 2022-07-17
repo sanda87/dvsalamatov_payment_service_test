@@ -3,6 +3,21 @@ name: PHPCS check
 on: pull_request
 
 jobs:
+  phpstan:
+    name: PHPSTAN
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v13.1
+      - name: Install Composer dependencies
+        run: |
+          composer install --no-progress --prefer-dist --optimize-autoloader
+      - name: PHPStan
+        run: composer phpstan ./
+
   phpcs:
     name: PHPCS
     runs-on: ubuntu-latest
