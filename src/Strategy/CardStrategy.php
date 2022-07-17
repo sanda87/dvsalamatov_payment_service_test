@@ -1,15 +1,13 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Services\Strategy;
+namespace App\Strategy;
 
 use App\Banks\Responses\ProcessedPayment;
 use App\PaymentMethods\Card;
 use App\PaymentMethods\CardFactory;
+use App\Payments\Contracts\CardPaymentInterface;
 use App\Services\Payments\Commands\CreatePaymentCommand;
-use App\Services\Payments\Contracts\CardPaymentInterface;
-use App\Strategy\AbstractStrategy;
-use App\Strategy\Context;
 use App\Strategy\Contracts\CardStrategyInterface;
 
 class CardStrategy extends AbstractStrategy implements CardStrategyInterface
@@ -35,15 +33,5 @@ class CardStrategy extends AbstractStrategy implements CardStrategyInterface
     public function processPayment(): ProcessedPayment
     {
         return $this->chargePaymentService->handleCardPayment($this->payment, $this->bank);
-    }
-
-    public function setContext(Context $context): void
-    {
-        // TODO: Implement setContext() method.
-    }
-
-    public function createBank(): void
-    {
-        // TODO: Implement createBank() method.
     }
 }

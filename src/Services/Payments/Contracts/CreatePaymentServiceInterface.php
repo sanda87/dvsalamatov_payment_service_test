@@ -4,6 +4,7 @@ namespace App\Services\Payments\Contracts;
 
 use App\PaymentMethods\Card;
 use App\PaymentMethods\Qiwi;
+use App\Payments\Contracts\CardPaymentInterface;
 use App\Payments\Contracts\QiwiPaymentInterface;
 use App\Services\Payments\Commands\CreatePaymentCommand;
 

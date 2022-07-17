@@ -6,7 +6,6 @@ namespace App\Strategy;
 use App\PaymentMethods\Enum\PaymentNameEnum;
 use App\Services\Payments\Contracts\ChargePaymentServiceInterface;
 use App\Services\Payments\Contracts\CreatePaymentServiceInterface;
-use App\Services\Strategy\CardStrategy;
 use App\Strategy\Contracts\StrategyInterface;
 
 class StrategyFactory

@@ -4,10 +4,11 @@ namespace App\Services\Payments;
 
 use App\PaymentMethods\Card;
 use App\PaymentMethods\Qiwi;
+use App\Payments\CardPayment;
+use App\Payments\Contracts\CardPaymentInterface;
 use App\Payments\Contracts\QiwiPaymentInterface;
 use App\Payments\QiwiPayment;
 use App\Services\Payments\Commands\CreatePaymentCommand;
-use App\Services\Payments\Contracts\CardPaymentInterface;
 use App\Services\Payments\Contracts\CreatePaymentServiceInterface;
 
 class CreatePaymentService implements CreatePaymentServiceInterface

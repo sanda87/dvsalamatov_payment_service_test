@@ -4,8 +4,8 @@ namespace App\Services\Payments;
 
 use App\Banks\Contracts\BankInterface;
 use App\Banks\Responses\ProcessedPayment;
+use App\Payments\Contracts\CardPaymentInterface;
 use App\Payments\Contracts\QiwiPaymentInterface;
-use App\Services\Payments\Contracts\CardPaymentInterface;
 use App\Services\Payments\Contracts\ChargePaymentServiceInterface;
 
 class ChargePaymentService implements ChargePaymentServiceInterface
