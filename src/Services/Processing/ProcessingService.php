@@ -13,7 +13,8 @@ class ProcessingService implements ProcessingServiceInterface
 {
     private StrategyFactory $strategyFactory;
 
-    public function __construct(StrategyFactory $strategyFactory) {
+    public function __construct(StrategyFactory $strategyFactory)
+    {
         $this->strategyFactory = $strategyFactory;
     }
 
