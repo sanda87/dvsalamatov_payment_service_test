@@ -11,8 +11,6 @@ class CreatePaymentCommand
 {
     private Money $amount;
     private FeeCalculatorInterface $feeCalculator;
-    //    private string $paymentName;
-    //    private mixed $paymentMethod;
 
     public function __construct(
         Money $amount,
@@ -20,8 +18,6 @@ class CreatePaymentCommand
     ) {
         $this->amount = $amount;
         $this->feeCalculator = $feeCalculator;
-        //        $this->paymentName = $paymentName;
-        //        $this->paymentMethod = $paymentMethod;
     }
 
     public function getAmount() : Money
@@ -33,14 +29,4 @@ class CreatePaymentCommand
     {
         return $this->feeCalculator;
     }
-
-    //    public function getPaymentName(): string
-    //    {
-    //        return $this->paymentName;
-    //    }
-
-    //    public function getPaymentMethod(): mixed
-    //    {
-    //        return $this->paymentMethod;
-    //    }
 }

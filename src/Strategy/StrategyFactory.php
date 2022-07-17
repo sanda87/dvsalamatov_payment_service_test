@@ -23,6 +23,11 @@ class StrategyFactory
         $this->chargePaymentService = $chargePaymentService;
     }
 
+    /**
+     * @param string $paymentFlowName
+     * @return StrategyInterface
+     * @throws Exception
+     */
     public function create(string $paymentFlowName) : StrategyInterface
     {
         switch ($paymentFlowName) {

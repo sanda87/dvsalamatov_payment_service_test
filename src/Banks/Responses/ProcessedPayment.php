@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Banks\Responses;
-
 
 class ProcessedPayment
 {
@@ -16,15 +16,13 @@ class ProcessedPayment
         $this->status = $status;
     }
 
-    public function isFailed(): bool
+    public function isFailed() : bool
     {
-        return $this->status == self::STATUS_FAILED;
+        return $this->status === self::STATUS_FAILED;
     }
 
-    public function isCompleted(): bool
+    public function isCompleted() : bool
     {
-        return $this->status == self::STATUS_COMPLETED;
+        return $this->status === self::STATUS_COMPLETED;
     }
-
-
 }

@@ -35,7 +35,9 @@ class Payment
         return $this->createdAt;
     }
 
-    //TODO добавить поле amount_without_fee
+    /**
+     * TODO добавить поле amount_without_fee
+     */
     public function getNetAmount() : Money
     {
         return $this->amount->subtract($this->commission);
