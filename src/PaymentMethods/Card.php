@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\PaymentMethods;
 
+use App\PaymentMethods\Enum\PaymentNameEnum;
 use DateTime;
 
 class Card extends AbstractPaymentMethod
