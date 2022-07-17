@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Strategy;
 
@@ -27,17 +28,17 @@ abstract class AbstractStrategy implements StrategyInterface
         $this->chargePaymentService = $chargePaymentService;
     }
 
-    public function setContext(Context $context): void
+    public function setContext(Context $context) : void
     {
         $this->context = $context;
     }
 
-    public function createBank(): void
+    public function createBank() : void
     {
         $this->bank = BankFactory::create($this->context->getBankName());
     }
 
-    protected function createFeeCalculator(): void
+    protected function createFeeCalculator() : void
     {
         $this->feeCalculator = new FeeCalculatorCalculator(
             $this->context->getAmount(),

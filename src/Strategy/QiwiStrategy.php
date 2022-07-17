@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Strategy;
 
@@ -15,12 +16,12 @@ class QiwiStrategy extends AbstractStrategy implements CardStrategyInterface
     protected Qiwi $qiwi;
     protected QiwiPaymentInterface $payment;
 
-    public function createPaymentMethod(): void
+    public function createPaymentMethod() : void
     {
         $this->qiwi = CardFactory::createQiwi($this->context->getPaymentMethodParams());
     }
 
-    public function createPayment(): void
+    public function createPayment() : void
     {
         $this->createFeeCalculator();
 
@@ -30,7 +31,7 @@ class QiwiStrategy extends AbstractStrategy implements CardStrategyInterface
         );
     }
 
-    public function processPayment(): ProcessedPayment
+    public function processPayment() : ProcessedPayment
     {
         return $this->chargePaymentService->handleQiwiPayment($this->payment, $this->bank);
     }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Payments;
 
@@ -18,7 +19,7 @@ class CardPayment extends AbstractPayment implements CardPaymentInterface
         $this->card = $card;
     }
 
-    public function getCard(): Card
+    public function getCard() : Card
     {
         return $this->card;
     }

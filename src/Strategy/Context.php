@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Strategy;
 
@@ -27,22 +28,22 @@ class Context
         $this->paymentMethodParams = $paymentMethodParams;
     }
 
-    public function getAmount(): Money
+    public function getAmount() : Money
     {
-        return Money::{$this->currency}($this->amount);
+        return Money::[$this->currency]$this->amount;
     }
 
-    public function getBankName(): string
+    public function getBankName() : string
     {
         return $this->bankName;
     }
 
-    public function getPaymentFlow(): string
+    public function getPaymentFlow() : string
     {
         return $this->paymentFlow;
     }
 
-    public function getPaymentMethodParams(): array
+    public function getPaymentMethodParams() : array
     {
         return $this->paymentMethodParams;
     }

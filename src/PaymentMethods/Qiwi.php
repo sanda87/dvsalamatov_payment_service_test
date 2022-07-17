@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\PaymentMethods;
 
@@ -12,12 +13,12 @@ class Qiwi extends AbstractPaymentMethod
         $this->phone = $phone;
     }
 
-    public function getPhone(): string
+    public function getPhone() : string
     {
         return $this->phone;
     }
 
-    public function getPaymentName(): string
+    public function getPaymentName() : string
     {
         return PaymentNameEnum::QIWI;
     }

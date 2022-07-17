@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\PaymentMethods;
 
 use DateTime;
@@ -17,22 +19,22 @@ class Card extends AbstractPaymentMethod
         $this->cvc = $cvc;
     }
 
-    public function getPan(): string
+    public function getPan() : string
     {
         return $this->pan;
     }
 
-    public function getExpiryDate(): DateTime
+    public function getExpiryDate() : DateTime
     {
         return $this->expiryDate;
     }
 
-    public function getCvc(): int
+    public function getCvc() : int
     {
         return $this->cvc;
     }
 
-    public function getPaymentName(): string
+    public function getPaymentName() : string
     {
         return PaymentNameEnum::CARD;
     }

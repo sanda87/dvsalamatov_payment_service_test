@@ -1,11 +1,12 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\PaymentMethods;
 
 class CardFactory
 {
-    public static function createCard(array $params): Card
+    public static function createCard(array $params) : Card
     {
         return new Card(
             $params['pan'],
@@ -14,7 +15,7 @@ class CardFactory
         );
     }
 
-    public static function createQiwi(array $params): Qiwi
+    public static function createQiwi(array $params) : Qiwi
     {
         return new Qiwi($params['phone']);
     }

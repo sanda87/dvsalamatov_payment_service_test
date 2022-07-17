@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Banks\Contracts;
@@ -10,7 +11,7 @@ use Money\Money;
 
 interface BankInterface
 {
-    public function processCardPayment(Money $amount, Card $card): ProcessedPayment;
+    public function processCardPayment(Money $amount, Card $card) : ProcessedPayment;
 
-    public function processQiwiPayment(Money $amount, Qiwi $qiwi): ProcessedPayment;
+    public function processQiwiPayment(Money $amount, Qiwi $qiwi) : ProcessedPayment;
 }

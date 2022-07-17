@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Payments\Contracts;
 
 use App\PaymentMethods\Card;
@@ -10,7 +12,7 @@ use App\Services\Payments\Commands\CreatePaymentCommand;
 
 interface CreatePaymentServiceInterface
 {
-    public function handleCard(CreatePaymentCommand $command, Card $card): CardPaymentInterface;
+    public function handleCard(CreatePaymentCommand $command, Card $card) : CardPaymentInterface;
 
-    public function handleQiwi(CreatePaymentCommand $command, Qiwi $qiwi): QiwiPaymentInterface;
+    public function handleQiwi(CreatePaymentCommand $command, Qiwi $qiwi) : QiwiPaymentInterface;
 }

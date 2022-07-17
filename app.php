@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Banks\Enum\BanksNames;
 use App\PaymentMethods\Enum\PaymentNameEnum;
 use App\Services\Payments\ChargePaymentService;
@@ -30,7 +32,6 @@ $response = $processingService->handle($context);
 //$context = new Context($clientAmount, $clientCurrency, $clientBankName, $clientPaymentFlow, $params);
 //$processingService = new ProcessingService(new CreatePaymentService(), new ChargePaymentService());
 //$response = $processingService->handle($context);
-
 
 if ($response->isCompleted()) {
     echo 'Thank you! Payment completed';

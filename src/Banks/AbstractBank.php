@@ -17,7 +17,7 @@ abstract class AbstractBank implements BankInterface
         return new ProcessedPayment(ProcessedPayment::STATUS_COMPLETED);
     }
 
-    public function processQiwiPayment(Money $amount, Qiwi $qiwi): ProcessedPayment
+    public function processQiwiPayment(Money $amount, Qiwi $qiwi) : ProcessedPayment
     {
         return new ProcessedPayment(ProcessedPayment::STATUS_COMPLETED);
     }

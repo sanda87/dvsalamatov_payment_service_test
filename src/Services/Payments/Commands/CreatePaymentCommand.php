@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Payments\Commands;
 
 use App\Fee\FeeCalculatorInterface;
@@ -9,8 +11,8 @@ class CreatePaymentCommand
 {
     private Money $amount;
     private FeeCalculatorInterface $feeCalculator;
-//    private string $paymentName;
-//    private mixed $paymentMethod;
+    //    private string $paymentName;
+    //    private mixed $paymentMethod;
 
     public function __construct(
         Money $amount,
@@ -18,29 +20,27 @@ class CreatePaymentCommand
     ) {
         $this->amount = $amount;
         $this->feeCalculator = $feeCalculator;
-//        $this->paymentName = $paymentName;
-//        $this->paymentMethod = $paymentMethod;
+        //        $this->paymentName = $paymentName;
+        //        $this->paymentMethod = $paymentMethod;
     }
 
-    public function getAmount(): Money
+    public function getAmount() : Money
     {
         return $this->amount;
     }
 
-    public function getFeeCalculator(): FeeCalculatorInterface
+    public function getFeeCalculator() : FeeCalculatorInterface
     {
         return $this->feeCalculator;
     }
 
-//    public function getPaymentName(): string
-//    {
-//        return $this->paymentName;
-//    }
+    //    public function getPaymentName(): string
+    //    {
+    //        return $this->paymentName;
+    //    }
 
-//    public function getPaymentMethod(): mixed
-//    {
-//        return $this->paymentMethod;
-//    }
-
-
+    //    public function getPaymentMethod(): mixed
+    //    {
+    //        return $this->paymentMethod;
+    //    }
 }

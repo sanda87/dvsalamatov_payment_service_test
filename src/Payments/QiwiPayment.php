@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Payments;
 
@@ -18,7 +19,7 @@ class QiwiPayment extends AbstractPayment implements QiwiPaymentInterface
         $this->qiwi = $qiwi;
     }
 
-    public function getQiwi(): Qiwi
+    public function getQiwi() : Qiwi
     {
         return $this->qiwi;
     }

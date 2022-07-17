@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Payments;
 
@@ -15,7 +16,7 @@ abstract class AbstractPayment
         $this->payment = new Payment($amount, $commission);
     }
 
-    public function getAmount(): Money
+    public function getAmount() : Money
     {
         return $this->payment->getAmount();
     }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Fee;
 
@@ -20,8 +21,7 @@ class FeeCalculatorCalculator implements FeeCalculatorInterface
      * Все настройки по комсе хранятся в базе, поэтому один класс на все банки
      * Можно сделать отдельные классы по каждому типу комсы: по банку, по типу платежа и дефолтная комса
      */
-
-    public function calculateCommission(): Money
+    public function calculateCommission() : Money
     {
         return Money::RUB(100);
     }

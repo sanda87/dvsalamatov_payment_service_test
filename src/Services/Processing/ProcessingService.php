@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Processing;
 
 use App\Banks\Responses\ProcessedPayment;
@@ -20,7 +22,7 @@ class ProcessingService implements ProcessingServiceInterface
         $this->strategyFactory = new StrategyFactory($createPaymentService, $chargePaymentService);
     }
 
-    public function handle(Context $context): ProcessedPayment
+    public function handle(Context $context) : ProcessedPayment
     {
         $strategy = $this->strategyFactory->create($context->getPaymentFlow());
         $strategy->setContext($context);

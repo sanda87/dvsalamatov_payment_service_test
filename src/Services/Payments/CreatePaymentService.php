@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Payments;
 
 use App\PaymentMethods\Card;
@@ -13,14 +15,14 @@ use App\Services\Payments\Contracts\CreatePaymentServiceInterface;
 
 class CreatePaymentService implements CreatePaymentServiceInterface
 {
-    public function handleCard(CreatePaymentCommand $command, Card $card): CardPaymentInterface
+    public function handleCard(CreatePaymentCommand $command, Card $card) : CardPaymentInterface
     {
         $commission = $command->getFeeCalculator()->calculateCommission();
 
         return new CardPayment($command->getAmount(), $commission, $card);
     }
 
-    public function handleQiwi(CreatePaymentCommand $command, Qiwi $qiwi): QiwiPaymentInterface
+    public function handleQiwi(CreatePaymentCommand $command, Qiwi $qiwi) : QiwiPaymentInterface
     {
         $commission = $command->getFeeCalculator()->calculateCommission();
 

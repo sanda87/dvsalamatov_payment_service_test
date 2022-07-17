@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Strategy;
 
@@ -7,6 +8,7 @@ use App\PaymentMethods\Enum\PaymentNameEnum;
 use App\Services\Payments\Contracts\ChargePaymentServiceInterface;
 use App\Services\Payments\Contracts\CreatePaymentServiceInterface;
 use App\Strategy\Contracts\StrategyInterface;
+use Exception;
 
 class StrategyFactory
 {
@@ -21,7 +23,7 @@ class StrategyFactory
         $this->chargePaymentService = $chargePaymentService;
     }
 
-    public function create(string $paymentFlowName): StrategyInterface
+    public function create(string $paymentFlowName) : StrategyInterface
     {
         switch ($paymentFlowName) {
             case PaymentNameEnum::CARD:
@@ -32,7 +34,7 @@ class StrategyFactory
                 break;
             default:
                 //TODO выкидывать специальный exception место общего
-                throw new \Exception('Wrong flow name');
+                throw new Exception('Wrong flow name');
         }
 
         return $strategy;
