@@ -1,22 +1,25 @@
 <?php
 
-
 namespace App\Services\Payments\Commands;
 
-
-use App\PaymentMethods\Card;
+use App\Fee\FeeCalculatorInterface;
 use Money\Money;
 
 class CreatePaymentCommand
 {
-
     private Money $amount;
-    private Card $card;
+    private FeeCalculatorInterface $feeCalculator;
+//    private string $paymentName;
+//    private mixed $paymentMethod;
 
-    public function __construct(Money $amount, Card $card)
-    {
+    public function __construct(
+        Money $amount,
+        FeeCalculatorInterface $feeCalculator
+    ) {
         $this->amount = $amount;
-        $this->card = $card;
+        $this->feeCalculator = $feeCalculator;
+//        $this->paymentName = $paymentName;
+//        $this->paymentMethod = $paymentMethod;
     }
 
     public function getAmount(): Money
@@ -24,8 +27,20 @@ class CreatePaymentCommand
         return $this->amount;
     }
 
-    public function getCard(): Card
+    public function getFeeCalculator(): FeeCalculatorInterface
     {
-        return $this->card;
+        return $this->feeCalculator;
     }
+
+//    public function getPaymentName(): string
+//    {
+//        return $this->paymentName;
+//    }
+
+//    public function getPaymentMethod(): mixed
+//    {
+//        return $this->paymentMethod;
+//    }
+
+
 }

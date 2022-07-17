@@ -4,7 +4,7 @@
 namespace App\Banks\Responses;
 
 
-class Payment
+class ProcessedPayment
 {
     public const STATUS_FAILED = 1;
     public const STATUS_COMPLETED = 2;

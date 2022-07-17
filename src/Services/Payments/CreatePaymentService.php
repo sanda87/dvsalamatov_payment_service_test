@@ -2,15 +2,27 @@
 
 namespace App\Services\Payments;
 
-use App\Entities\Payment;
+use App\PaymentMethods\Card;
+use App\PaymentMethods\Qiwi;
+use App\Payments\Contracts\QiwiPaymentInterface;
+use App\Payments\QiwiPayment;
 use App\Services\Payments\Commands\CreatePaymentCommand;
-use Money\Money;
+use App\Services\Payments\Contracts\CardPaymentInterface;
+use App\Services\Payments\Contracts\CreatePaymentServiceInterface;
 
-class CreatePaymentService
+class CreatePaymentService implements CreatePaymentServiceInterface
 {
-    public function handle(CreatePaymentCommand $command): Payment
+    public function handleCard(CreatePaymentCommand $command, Card $card): CardPaymentInterface
     {
-        $commission = Money::RUB(100);
-        return new Payment($command->getAmount(), $commission, $command->getCard());
+        $commission = $command->getFeeCalculator()->calculateCommission();
+
+        return new CardPayment($command->getAmount(), $commission, $card);
+    }
+
+    public function handleQiwi(CreatePaymentCommand $command, Qiwi $qiwi): QiwiPaymentInterface
+    {
+        $commission = $command->getFeeCalculator()->calculateCommission();
+
+        return new QiwiPayment($command->getAmount(), $commission, $qiwi);
     }
 }
