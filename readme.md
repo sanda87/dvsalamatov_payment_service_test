@@ -5,7 +5,6 @@
 - `cp .env.dist .env`
 - `docker-compose up -d --build`
 - `docker exec -it api_php composer install`
-- `docker exec -it api_php php yii migrate`
 
 Сайт доступен по адресу: http://localhost:8180/app.php
 
