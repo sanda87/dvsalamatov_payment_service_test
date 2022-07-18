@@ -2,39 +2,38 @@
 
 declare(strict_types=1);
 
+use App\Banks\BankFactory;
 use App\Banks\Enum\BanksNames;
+use App\Fee\FeeCalculatorCalculator;
 use App\PaymentMethods\Enum\PaymentNameEnum;
-use App\Services\Payments\ChargePaymentService;
-use App\Services\Payments\CreatePaymentService;
-use App\Services\Processing\ProcessingService;
-use App\Strategy\Context;
-use App\Strategy\StrategyFactory;
+use App\Strategy\CardStrategy;
+use App\Strategy\QiwiStrategy;
+use Money\Money;
 
 require_once './vendor/autoload.php';
 
-$clientBankName = BanksNames::SBERBANK;
-$clientAmount = 100;
-$clientCurrency = 'EUR';
-
 //Example for Qiwi
-$clientPaymentFlow = PaymentNameEnum::QIWI;
-$params = ['phone' => '+79059808010'];
-$context = new Context($clientAmount, $clientCurrency, $clientBankName, $clientPaymentFlow, $params);
-$strategyFactory = new StrategyFactory(new CreatePaymentService(), new ChargePaymentService());
-$processingService = new ProcessingService($strategyFactory);
-$response = $processingService->handle($context);
+$bank = BankFactory::create(BanksNames::SBERBANK);
+$amount = Money::EUR(100);
+
+//$feeCalculator = new FeeCalculatorCalculator($amount, PaymentNameEnum::QIWI);
+//
+//$strategy = new QiwiStrategy();
+//$paymentMethod = $strategy->createPaymentMethod(['phone' => '+79059808010']);
+//$payment = $strategy->createPayment($amount, $feeCalculator, $paymentMethod);
+//$response = $strategy->processPayment($payment, $bank);
 
 //Example for Card
-//$clientPaymentFlow = PaymentNameEnum::CARD;
-//$params = [
-//    'pan' => '4242424242424242',
-//    'date' => new \DateTime('2021-10-15'),
-//    'cvc' => 123
-//];
-//$context = new Context($clientAmount, $clientCurrency, $clientBankName, $clientPaymentFlow, $params);
-//$strategyFactory = new StrategyFactory(new CreatePaymentService(), new ChargePaymentService());
-//$processingService = new ProcessingService($strategyFactory);
-//$response = $processingService->handle($context);
+$feeCalculator = new FeeCalculatorCalculator($amount, PaymentNameEnum::CARD);
+
+$strategy = new CardStrategy();
+$paymentMethod = $strategy->createPaymentMethod([
+    'pan' => '4242424242424242',
+    'date' => new \DateTime('2021-10-15'),
+    'cvc' => 123
+]);
+$payment = $strategy->createPayment($amount, $feeCalculator, $paymentMethod);
+$response = $strategy->processPayment($payment, $bank);
 
 if ($response->isCompleted()) {
     echo 'Thank you! Payment completed';

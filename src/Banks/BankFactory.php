@@ -13,7 +13,7 @@ class BankFactory
     /**
      * @throws Exception
      */
-    public static function create(string $acquirerName) : BankInterface
+    public static function create(string $acquirerName): BankInterface
     {
         switch ($acquirerName) {
             case BanksNames::SBERBANK:

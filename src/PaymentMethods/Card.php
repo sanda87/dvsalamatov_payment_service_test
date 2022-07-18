@@ -7,7 +7,7 @@ namespace App\PaymentMethods;
 use App\PaymentMethods\Enum\PaymentNameEnum;
 use DateTime;
 
-class Card extends AbstractPaymentMethod
+class Card implements PaymentMethodInterface
 {
     private string $pan;
     private DateTime $expiryDate;

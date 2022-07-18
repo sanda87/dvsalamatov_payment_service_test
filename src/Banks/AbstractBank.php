@@ -12,12 +12,12 @@ use Money\Money;
 
 abstract class AbstractBank implements BankInterface
 {
-    public function processCardPayment(Money $amount, Card $card) : ProcessedPayment
+    public function processCardPayment(Money $amount, Card $card): ProcessedPayment
     {
         return new ProcessedPayment(ProcessedPayment::STATUS_COMPLETED);
     }
 
-    public function processQiwiPayment(Money $amount, Qiwi $qiwi) : ProcessedPayment
+    public function processQiwiPayment(Money $amount, Qiwi $qiwi): ProcessedPayment
     {
         return new ProcessedPayment(ProcessedPayment::STATUS_COMPLETED);
     }

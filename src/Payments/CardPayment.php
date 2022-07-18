@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Payments;
 
 use App\PaymentMethods\Card;
-use App\Payments\Contracts\CardPaymentInterface;
+use App\PaymentMethods\PaymentMethodInterface;
+use App\Payments\Contracts\PaymentInterface;
 use Money\Money;
 
-class CardPayment extends AbstractPayment implements CardPaymentInterface
+class CardPayment extends AbstractPayment implements PaymentInterface
 {
     private Card $card;
 
@@ -19,7 +20,7 @@ class CardPayment extends AbstractPayment implements CardPaymentInterface
         $this->card = $card;
     }
 
-    public function getCard() : Card
+    public function getPaymentMethod(): PaymentMethodInterface
     {
         return $this->card;
     }

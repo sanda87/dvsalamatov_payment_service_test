@@ -4,35 +4,59 @@ declare(strict_types=1);
 
 namespace App\Strategy;
 
+use App\Banks\Contracts\BankInterface;
 use App\Banks\Responses\ProcessedPayment;
+use App\Fee\FeeCalculatorInterface;
 use App\PaymentMethods\Card;
 use App\PaymentMethods\CardFactory;
-use App\Payments\Contracts\CardPaymentInterface;
-use App\Services\Payments\Commands\CreatePaymentCommand;
-use App\Strategy\Contracts\CardStrategyInterface;
+use App\PaymentMethods\PaymentMethodInterface;
+use App\Payments\CardPayment;
+use App\Payments\Contracts\PaymentInterface;
+use App\Strategy\Contracts\StrategyInterface;
+use LogicException;
+use Money\Money;
 
-class CardStrategy extends AbstractStrategy implements CardStrategyInterface
+class CardStrategy implements StrategyInterface
 {
-    protected Card $card;
-    protected CardPaymentInterface $payment;
 
-    public function createPaymentMethod() : void
+    public function createPaymentMethod(array $params): PaymentMethodInterface
     {
-        $this->card = CardFactory::createCard($this->context->getPaymentMethodParams());
+        return CardFactory::createCard($params);
     }
 
-    public function createPayment() : void
+    /**
+     * @param Money $amount
+     * @param FeeCalculatorInterface $feeCalculator
+     * @param PaymentMethodInterface $paymentMethod
+     * @return PaymentInterface
+     */
+    public function createPayment(
+        Money $amount,
+        FeeCalculatorInterface $feeCalculator,
+        PaymentMethodInterface $paymentMethod
+    ): PaymentInterface
     {
-        $this->createFeeCalculator();
-
-        $this->payment = $this->createPaymentService->handleCard(
-            new CreatePaymentCommand($this->context->getAmount(), $this->feeCalculator),
-            $this->card
-        );
+        $this->validatePaymentMethod($paymentMethod);
+        /**
+         * @var Card $paymentMethod
+         */
+        return new CardPayment($amount, $feeCalculator->calculateCommission(), $paymentMethod);
     }
 
-    public function processPayment() : ProcessedPayment
+    public function processPayment(PaymentInterface $payment, BankInterface $bank): ProcessedPayment
     {
-        return $this->chargePaymentService->handleCardPayment($this->payment, $this->bank);
+        $card = $payment->getPaymentMethod();
+        $this->validatePaymentMethod($card);
+        /**
+         * @var Card $card
+         */
+        return $bank->processCardPayment($payment->getAmount(), $card);
+    }
+
+    private function validatePaymentMethod(PaymentMethodInterface $paymentMethod)
+    {
+        if (!($paymentMethod instanceof Card)) {
+            throw new LogicException('PaymentMethod is not a Card instance');
+        }
     }
 }

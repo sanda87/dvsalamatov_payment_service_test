@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Payments;
 
+use App\PaymentMethods\PaymentMethodInterface;
 use App\PaymentMethods\Qiwi;
-use App\Payments\Contracts\QiwiPaymentInterface;
+use App\Payments\Contracts\PaymentInterface;
 use Money\Money;
 
-class QiwiPayment extends AbstractPayment implements QiwiPaymentInterface
+class QiwiPayment extends AbstractPayment implements PaymentInterface
 {
     private Qiwi $qiwi;
 
@@ -19,7 +20,7 @@ class QiwiPayment extends AbstractPayment implements QiwiPaymentInterface
         $this->qiwi = $qiwi;
     }
 
-    public function getQiwi() : Qiwi
+    public function getPaymentMethod(): PaymentMethodInterface
     {
         return $this->qiwi;
     }

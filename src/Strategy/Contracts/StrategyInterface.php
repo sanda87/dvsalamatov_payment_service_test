@@ -4,18 +4,28 @@ declare(strict_types=1);
 
 namespace App\Strategy\Contracts;
 
+use App\Banks\Contracts\BankInterface;
 use App\Banks\Responses\ProcessedPayment;
-use App\Strategy\Context;
+use App\Fee\FeeCalculatorInterface;
+use App\PaymentMethods\PaymentMethodInterface;
+use App\Payments\Contracts\PaymentInterface;
+use Money\Money;
 
 interface StrategyInterface
 {
-    public function setContext(Context $context) : void;
+    public function createPaymentMethod(array $params): PaymentMethodInterface;
 
-    public function createBank() : void;
+    /**
+     * @param Money $amount
+     * @param FeeCalculatorInterface $feeCalculator
+     * @param PaymentMethodInterface $paymentMethod
+     * @return PaymentInterface
+     */
+    public function createPayment(
+        Money $amount,
+        FeeCalculatorInterface $feeCalculator,
+        PaymentMethodInterface $paymentMethod
+    ): PaymentInterface;
 
-    public function createPaymentMethod() : void;
-
-    public function createPayment() : void;
-
-    public function processPayment() : ProcessedPayment;
+    public function processPayment(PaymentInterface $payment, BankInterface $bank): ProcessedPayment;
 }

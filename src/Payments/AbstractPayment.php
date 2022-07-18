@@ -16,7 +16,7 @@ abstract class AbstractPayment
         $this->payment = new Payment($amount, $commission);
     }
 
-    public function getAmount() : Money
+    public function getAmount(): Money
     {
         return $this->payment->getAmount();
     }

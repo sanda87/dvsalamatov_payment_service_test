@@ -4,35 +4,58 @@ declare(strict_types=1);
 
 namespace App\Strategy;
 
+use App\Banks\Contracts\BankInterface;
 use App\Banks\Responses\ProcessedPayment;
+use App\Fee\FeeCalculatorInterface;
 use App\PaymentMethods\CardFactory;
+use App\PaymentMethods\PaymentMethodInterface;
 use App\PaymentMethods\Qiwi;
-use App\Payments\Contracts\QiwiPaymentInterface;
-use App\Services\Payments\Commands\CreatePaymentCommand;
-use App\Strategy\Contracts\CardStrategyInterface;
+use App\Payments\Contracts\PaymentInterface;
+use App\Payments\QiwiPayment;
+use App\Strategy\Contracts\StrategyInterface;
+use LogicException;
+use Money\Money;
 
-class QiwiStrategy extends AbstractStrategy implements CardStrategyInterface
+class QiwiStrategy implements StrategyInterface
 {
-    protected Qiwi $qiwi;
-    protected QiwiPaymentInterface $payment;
-
-    public function createPaymentMethod() : void
+    public function createPaymentMethod(array $params): PaymentMethodInterface
     {
-        $this->qiwi = CardFactory::createQiwi($this->context->getPaymentMethodParams());
+        return CardFactory::createQiwi($params);
     }
 
-    public function createPayment() : void
+    /**
+     * @param Money $amount
+     * @param FeeCalculatorInterface $feeCalculator
+     * @param PaymentMethodInterface $paymentMethod
+     * @return PaymentInterface
+     */
+    public function createPayment(
+        Money $amount,
+        FeeCalculatorInterface $feeCalculator,
+        PaymentMethodInterface $paymentMethod
+    ): PaymentInterface
     {
-        $this->createFeeCalculator();
-
-        $this->payment = $this->createPaymentService->handleQiwi(
-            new CreatePaymentCommand($this->context->getAmount(), $this->feeCalculator),
-            $this->qiwi
-        );
+        $this->validatePaymentMethod($paymentMethod);
+        /**
+         * @var Qiwi $paymentMethod
+         */
+        return new QiwiPayment($amount, $feeCalculator->calculateCommission(), $paymentMethod);
     }
 
-    public function processPayment() : ProcessedPayment
+    public function processPayment(PaymentInterface $payment, BankInterface $bank): ProcessedPayment
     {
-        return $this->chargePaymentService->handleQiwiPayment($this->payment, $this->bank);
+        $qiwi = $payment->getPaymentMethod();
+        $this->validatePaymentMethod($qiwi);
+        /**
+         * @var Qiwi $qiwi
+         */
+        return $bank->processQiwiPayment($payment->getAmount(), $qiwi);
+    }
+
+    private function validatePaymentMethod(PaymentMethodInterface $paymentMethod)
+    {
+        if (!($paymentMethod instanceof Qiwi)) {
+            throw new LogicException('PaymentMethod is not a Qiwi instance');
+        }
     }
 }
